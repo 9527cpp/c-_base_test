@@ -40,6 +40,7 @@ static void process_byte(string sFilePathIn,string sFilePathOut)
         fin.seekg(1,ios::cur);
         nCount=fin.tellg();
         
+
         //printf("%d,",nCount);
 	}
 	printf("finished\r\n");
