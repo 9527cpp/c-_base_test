@@ -13,6 +13,7 @@
 using namespace std;
 
 
+///add by lijun
 static void process_byte(string sFilePathIn,string sFilePathOut)
 {
 	ifstream fin(sFilePathIn.c_str(),ios::in|ios::binary|ios::ate);
