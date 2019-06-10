@@ -12,6 +12,6 @@ OBJS		= $(SRCS:%.cpp=%.obj)
 $(EXE):$(OBJS)
 	$(GCC)  $(CFLAGS)  -o $@ $^ $(LDFLAGS)
 $(OBJS):%.obj:%.cpp
-	$(GCC) $(CFLAGS) -c $< -o $@
+	$(GCC) $(CFLAGS) -d -c $< -o $@
 clean:
 	rm -rf $(OBJS) $(EXE)

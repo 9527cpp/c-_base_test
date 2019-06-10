@@ -776,13 +776,6 @@ void cJSON_Minify(char *json)
 
 
 
-
-
-
-
-
-
-
 const unsigned int RDA_FLASH_SIZE	  = 0x400000;  
 const unsigned int RDA_SYS_DATA_ADDR  = 0x183EC000;
 const unsigned int RDA_USER_DATA_ADDR = 0x183ED000;

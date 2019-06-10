@@ -118,19 +118,34 @@ static void process_short(string sFilePathIn,string sFilePathOut)
 }
 
 
+
+int Get_Num(int n)
+{
+    
+    if (n ==1);return 1;
+    return n+Get_Num(n-1);
+}
+
+
+
+
 int main(int argc,char * argv[])
 {
+    //printf("%d\r\n",Get_Num(2));
+    
+
+#if 1    
     char strFileOut[128];
     int nArgInputLen = strlen(argv[1]);
     memcpy(strFileOut,argv[1],nArgInputLen);
     strFileOut[nArgInputLen]='\0';
-    strcat(strFileOut,".pcm");
-	process_short(argv[1],strFileOut);
-	//if (argc == 2)process_byte(argv[1],strFileOut);
-	//else if(argc ==3)process_byte(argv[1],argv[2]);
-	//process_byte("test2.pcm","test2.pcm.txt");
-	//process_short("test1.pcm","test1.pcm.txt");
-	//process_short("test2.pcm","test2.pcm.txt");
+    //strcat(strFileOut,".pcm");
+	//process_short(argv[1],strFileOut);
+	
+	strcat(strFileOut,".txt");
+	if (argc == 2)process_byte(argv[1],strFileOut);
+	else if(argc ==3)process_byte(argv[1],argv[2]);
+#endif	
 }
 
 
