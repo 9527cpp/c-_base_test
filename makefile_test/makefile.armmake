@@ -1,0 +1,27 @@
+﻿.PHONY	= clean
+GCC		= cl.exe
+
+SUBDIRS=$(shell dir /ad/b | grep -v debug)
+ROOT_DIR=$(shell chdir)
+BIN=myapp
+OBJS_DIR=debug\obj
+BIN_DIR=debug\bin
+INCLUDES = -I. -I./queue
+CFLAGS=$(INCLUDES)
+CUR_SOURCE=${wildcard *.c}
+CUR_OBJS=${patsubst %.c, %.obj, $(CUR_SOURCE)}
+export GCC BIN OBJS_DIR BIN_DIR ROOT_DIR
+all:$(SUBDIRS) $(CUR_OBJS) DEBUG
+
+$(SUBDIRS):ECHO
+	make -C  $@
+DEBUG:ECHO
+	make -C debug
+ECHO:
+	@echo $(SUBDIRS)
+	
+$(CUR_OBJS):%.obj:%.c
+	$(GCC) $(CFLAGS) -c $^  /Fo$(ROOT_DIR)\$(OBJS_DIR)\$@
+clean:
+	@del /Q $(ROOT_DIR)\$(OBJS_DIR)\*.obj
+	@del /Q $(ROOT_DIR)\$(BIN_DIR)\*

@@ -9,6 +9,11 @@ EXE			= $(TARGET).exe
 SRCS		= $(TARGET).cpp
 OBJS		= $(SRCS:%.cpp=%.obj)
 
+#	$(x):y	($(x)即目标文件 y为依赖文件)
+#	$@	(目标文件)
+#	$^	(所有的依赖文件)
+#	$<	(第一个依赖文件) 
+
 $(EXE):$(OBJS)
 	$(GCC)  $(CFLAGS)  -o $@ $^ $(LDFLAGS)
 $(OBJS):%.obj:%.cpp
