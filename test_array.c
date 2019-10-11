@@ -892,22 +892,112 @@ int canThreePartsEqualSum(int* A, int ASize){
 }
 
 
+
 int checkPossibility(int* nums, int numsSize){
-    int i = numsSize-1;
-    while(i){
-        if(nums[i] < nums[i-1])break;
-        i--;
+}
+
+int findLengthOfLCIS(int* nums, int numsSize){
+    int i = 1;
+    int j = 0;
+    int c = 1;
+    int maxc = 0;
+
+    if(numsSize == 0)return 0;
+    if(numsSize == 1)return 1;
+    while(i < numsSize){
+        if(nums[i] > nums[j]){
+            c++;           
+        }
+        else{
+            if(c>maxc)maxc = c;
+            c = 1;
+        }
+        j = i;
+        i++;
     }
-    if(i>1)return 0;
+    if(c>maxc)maxc = c;
+    return maxc;
+}
+
+int findUnsortedSubarray(int* nums, int numsSize){
+    int len = 0;
+    return len;
+}
+
+int findSubStr(){
+	char p_maigemeng[9]={0xE5,0x8D,0x96,0xE4,0xB8,0xAA,0xE8,0x90,0x8C};
+    char p_xiangqianzou[9]={0xE5,0x90,0x91,0xE5,0x89,0x8D,0xE8,0xB5,0xB0};
+    char p_niupigu[9]={0xE6,0x89,0xAD,0xE5,0xB1,0x81,0xE8,0x82,0xA1};	
+    char p_tiaogewu[9]= {0xE8,0xB7,0xB3,0xE4,0xB8,0xAA,0xE8,0x88,0x9E};
+    char p_changshouge[9]={0xE5,0x94,0xB1,0xE9,0xA6,0x96,0xE6,0xAD,0x8C};
+    
+    char p_strS[15]={0xE7,0xBB,0x99,0xE6,0x88,0x91,0xE8,0xB7,0xB3,0xE4,0xB8,0xAA,0xE8,0x88,0x9E};
+    int t_len = 9;
+    int s_len = 15;
+	int i = 0;
+    char *strT = p_tiaogewu;
+	for(i;i<=s_len-t_len;i++)
+	{
+		if(memcmp(p_strS+i,strT,t_len) == 0)return 1;
+	}
+    return 0;
+}
+
+
+int isValid(char * s){
+    int len = strlen(s);
+    int *stack=(int*)malloc(sizeof(int)*len);
+    int i=0;
+    int j=-1;
+    while(i<len){
+        if(s[i]=='('||s[i]=='['||s[i]=='{')stack[++j]=s[i];
+        else {
+            if(j>=0 && (stack[j]=='('&&s[i]==')'
+              ||stack[j]=='['&&s[i]==']'
+              ||stack[j]=='{'&&s[i]=='}')){
+                j--;
+            }
+            else return 0;
+        }
+        i++;
+    }
+    free(stack);
     return 1;
 }
 
+
+char * removeOuterParentheses(char * S){
+    char *T = NULL;
+    char *St = S;
+    int i = 0;//S_start
+    int j = 0;//S_end
+    int l = 0;
+    int k = 0;//T_index
+    int len_S = strlen(S);
+
+    T = (char *)malloc(len_S+1);
+    while(*S)
+    {
+        if(*S == '(')l++;
+        else if(*S == ')')l--;        
+        if(l == 0)
+        {
+            memcpy(T+k,St+i+1,j-i-1);
+            k+=j-i-1;
+            i = j+1;
+        }
+        S++;
+        j++;
+    }
+    T[k]='\0';
+    return T;
+}
 
 
 int main()
 {
     int i = 0;
-	int nums[] = {4,2,1};
+	int nums[] = {2, 4, 4, 3, 10, 3, 15};
     int nums2[]={22,28,8,6};
 	int val = 7;
 	int len1 = sizeof(nums)/sizeof(nums[0]);
@@ -969,8 +1059,15 @@ int main()
     //len = countCharacters(words,20,chars);
     //len = maxProfit(nums,len1);
     //len = canThreePartsEqualSum(nums,len1);
-    len = checkPossibility(nums,len1);
-    printf("%d\r\n",len);
+    //len = checkPossibility(nums,len1);
+    //len = findLengthOfLCIS(nums,len1);
+    //len = findUnsortedSubarray(nums,len1);
+    //len = findSubStr();
+    //len = isValid("{[(]}");
+    //printf("%d\r\n",len);
+
+    chars = removeOuterParentheses("(()())(())");
+    printf("%s\r\n",chars);
 #if 0
     //insert_sort(nums,len1);
 	//bubble_sort(nums,len1);

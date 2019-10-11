@@ -19,8 +19,8 @@ class A
 class B:public A
 {
 	public:
-		virtual void virtual_print(){cout<<"B--->virtual_print"<<endl;}
-		void print(){cout<<"B--->print"<<endl;}
+		virtual void virtual_print(){cout<<"B--->virtual_print"<<endl;}//覆盖
+		void print(){cout<<"B--->print"<<endl;}//隐藏
 };
 
 
@@ -34,7 +34,7 @@ A--->print
 A--->virtual_print
 B--->print
 */
-#if 0
+#if 1
 int main()
 {
 	
@@ -48,18 +48,20 @@ int main()
 	a.print();
 	b.virtual_print();
 	b.print();
-	
+
+///
+//当用基类指针指向子类对象
+//或者用子类指针指向基类对象时
+//遵循 隐藏(重定义)看指针 覆盖(virtual)看对象	
 	//use obj_point
 	pa = &b;
-	pa->virtual_print();
-	pa->print();
+	pa->virtual_print();// 覆盖   看对象b  所以调用B的vritual
+	pa->print();// 隐藏 看指针pa 所用调用A的print
 	
 	pb =(B*)&a;
-	pb->virtual_print();
-	pb->print();
+	pb->virtual_print();// 覆盖   看对象a  所以调用A的vritual
+	pb->print();// 隐藏 看指针pa 所用调用A的print
 	
-	
-	cout<<"你好"<<endl;
 	return 0;
 }
 #endif

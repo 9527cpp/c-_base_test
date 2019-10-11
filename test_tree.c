@@ -6,18 +6,26 @@ struct node{
     struct node *right;
 };
 
-struct node * create_tree(int *p,int *pos,int len){
+struct node * create_tree(int *p,int len){
     struct node * head = NULL;
-    //printf("p[%d]:%d\r\n",*pos,p[*pos]);
+    struct node * temp = NULL;
+    const int len_ = len;
+    struct node ** stack = (struct node *)malloc(sizeof(struct node *)*len);
+    int i = 0;
+    int j = 0;
     if(len == 0)return NULL;
-    if(p[*pos] == 0)return NULL;
     head = (struct node *)malloc(sizeof(struct node));
     if(!head)return head;
-    head->val = p[*pos];
-    (*pos)++;
-    head->left = create_tree(p,pos,len);
-    (*pos)++;
-    head->right = create_tree(p,pos,len);
+    temp = head;
+    while(i<len){
+        if(p[i]!=0){
+            stack[j++]=temp;
+        }
+        else{
+
+        }
+        i++;
+    }
     return head;
 }
 
@@ -58,20 +66,19 @@ int isSameTree(struct node* p, struct node* q){
 
 
 int main(){
-    int pa[] = {1,2,0,0,3,0,0};
-    int pb[] = {1,2,3,0,0};
+    int pa[] = {1,2,0,3};
+    int pb[] = {1,0,2,3};
     int lena = sizeof(pa)/sizeof(pa[0]);
     int lenb = sizeof(pb)/sizeof(pb[0]);
     struct node * ha = NULL;
     struct node * hb = NULL;
-    int pos = 0;
     int result = 0;
-    ha = create_tree(pa,&pos,lena);
+    ha = create_tree(pa,lena);
     //display_tree(ha);
-    display_tree_1(ha);
+    //display_tree_1(ha);
     printf("\r\n");
-    pos = 0;
-    hb = create_tree(pb,&pos,lenb);
+
+    //hb = create_tree(pb,&pos,lenb);
     //display_tree(hb);
     //display_tree_1(hb);
     printf("\r\n");

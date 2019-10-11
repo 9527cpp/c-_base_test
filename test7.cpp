@@ -160,8 +160,26 @@ struct s6
 	char b : 4;
 };
 
+class A
+{
+public:
+	int a;
+	int b;
+	virtual void test1(){cout<<"A:test1"<<endl;}
+	virtual void test2(){cout<<"A:test2"<<endl;}
+	void test3(){}
+};
 
-/*
+class B:public A
+{
+	void test1(){cout<<"B:test1"<<endl;}//覆盖
+	//void test2(){cout<<"B:test1"<<endl;}//覆盖
+	virtual void test12(){}
+	void test3(){}// 隐藏	
+};
+
+typedef void (*Func)();
+
 int main(int argc, char* argv[])  
 {  
 	/*
@@ -200,6 +218,43 @@ int main(int argc, char* argv[])
 /*
 	cout<<"s5:"<<sizeof(s5)<<endl;  
 	cout<<"s6:"<<sizeof(s6)<<endl; 
+*/	
+	A t;
+	int * p = (int *)&t;
+	cout<<"A:"<<sizeof(t)<<endl; 	
+	cout<<"t ="<<&(t)<<endl;//p
+	cout<<"t.test1 ="<<(int *)(*p)<<endl;//_vtbptr
+	cout<<"t.test2 ="<<(int *)(*p)+1<<endl;//_vtbptr
+	
+	Func pFun = (Func) *(int *)(*p);
+	pFun();
+	pFun = (Func) *((int *)(*p)+1);
+	pFun();	
+	
+	/* 
+	vtb与类相关与对象无关
+	即无论对象是否创建，只要声明的类中有虚函数 那么就存在一张虚函数表
+	而且基类的虚表跟子类的虚表是不一样的地址(即使子类没修改虚函数)
+	创建对象仅仅是在对象中添加一个vtbptr的4字节指针
+	所以如果基类有大量的虚函数 如果采用继承的方式 那么各个子类也会存在大量的虚函数
+	这就是为什么MFC不用虚函数 而采用消息映射的原因	
+	*/
+	
+	B tb;
+	p = (int *)&tb;
+	cout<<"B:"<<sizeof(tb)<<endl; 	
+	cout<<"tb ="<<&(tb)<<endl;//p
+	cout<<"tb.test1 ="<<(int *)(*p)<<endl;//_vtbptr(第一个虚函数)
+	cout<<"tb.test2 ="<<(int *)(*p)+1<<endl;//_vtbptr(第二个虚函数)
+	
+	
+	pFun = (Func) *(int *)(*p);
+	pFun();
+	pFun = (Func) *((int *)(*p)+1);
+	pFun();		
+	
+	char aaa = 128;
+	char bbb = 127;
+	printf("%d\r\n",aaa+bbb);
   	return 0;  
 }  
-*/

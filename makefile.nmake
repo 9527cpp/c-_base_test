@@ -1,4 +1,4 @@
-﻿PROGRAM = $(TARGET).exe
+﻿PROGRAM = main.exe
 
 cc = cl 
 #cc = g++
@@ -8,15 +8,16 @@ CFLAGS = /w /EHsc /D_CRT_SECURE_NO_DEPRECATE /Zi
 LDFLAGS = /DEBUG
 LIBS = 
 
-CPPSOURCES = $(TARGET).cpp
+CPPSOURCES = $*.cpp
+CSOURECS = $*.c
 CPPOBJECTS = $(CPPSOURCES:.cpp=.obj)
-COBJECTS   = $(CPPSOURCES:.c=.obj) 
+COBJECTS   = $(CSOURECS:.c=.obj) 
 
  
 all: $(PROGRAM)
 
-$(PROGRAM): $(CPPOBJECTS)
-	link.exe $(LDFLAGS) $(CPPOBJECTS)  $(LIBS) /out:$(PROGRAM)
+$(PROGRAM): $(CPPOBJECTS) $(COBJECTS)
+	link.exe $(LDFLAGS) $(CPPOBJECTS) $(COBJECTS) $(LIBS) /out:$(PROGRAM)
 	
 $(CPPOBJECTS):  $(CPPSOURCES)
 	$(cc) $(CFLAGS)  $(CPPSOURCES) 
